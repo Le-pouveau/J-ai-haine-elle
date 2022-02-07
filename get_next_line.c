@@ -6,7 +6,7 @@
 /*   By: bjm <bjm@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 12:22:34 by bjm               #+#    #+#             */
-/*   Updated: 2022/02/05 10:59:06 by bjm              ###   ########.fr       */
+/*   Updated: 2022/02/06 21:40:47 by bjm              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char *ft_get_new_line(int fd)
 {
 	int 		i;
 	char 		buffer[BUFFER_SIZE + 1];
-	char		*tmp=NULL;
+	
 	char		*newline=NULL;
 	i = 1;
 	while(i > 0 && !ft_strchr(newline, '\n'))
@@ -25,18 +25,14 @@ char *ft_get_new_line(int fd)
 		buffer[i] = '\0';
 		if (i == -1)
 			return (NULL);
-		newline = ft_strjoin(tmp, buffer);
-		free (tmp);
-		tmp = ft_strdup(newline);
-		free (newline);
-	}
-	if (tmp [0] == 0) //pas responsable de la sigsev sur stdin
+		newline = ft_strjoin(newline, buffer);
+	if (newline[0] == 0)
 	{
-		free (tmp);
-		tmp = NULL;
+		free (newline);
+		return (NULL);
 	}
-	
-	return (tmp);
+	}
+	return (newline);
 }
 
 char	*ft_selectbeforenl(char *newline)
@@ -68,15 +64,11 @@ char	*ft_selectafternl(char *s1)
 	j = 0;
 	while (s1[i] != '\n')
 		i++;
+	i++;
 	test = malloc(sizeof(char) * (ft_strlen(s1) - i + 1));
 	while (s1[i])
-	{
-		i++;
-		j++;
-	}
+		test[j++] = s1[i++];
 	test[j] = '\0';
-	while(s1[i] != '\n')
-		test[j--] = s1[i--];
 	return (test);
 }
 char	*get_next_line(int fd)
@@ -85,10 +77,11 @@ char	*get_next_line(int fd)
 	char		*ret=NULL;
 	char 		*test=NULL;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !fd)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-		
-	test = ft_strjoin(newline, ft_get_new_line(fd));
+	ret = ft_get_new_line(fd);
+	test = ft_strjoin(newline, ret);
+	free (ret);
 	if (ft_strchr(test, '\n'))
 	{
 		ret = ft_selectbeforenl(test);
@@ -99,14 +92,20 @@ char	*get_next_line(int fd)
 	if (!ft_strchr(test, '\n'))
 	{
 		ret = ft_strdup(test);
+		free (test);
 		newline = NULL;
+		if (ret[0] == 0)
+		{
+			free (ret);
+			return (NULL);
+		}
+		return (ret);
 	}
-	free (test);
 	if (ret[0] == 0)
 		return (NULL);
+	free (test);
 	return (ret);
 }
-
 int main(void)
 {
 	int	i;

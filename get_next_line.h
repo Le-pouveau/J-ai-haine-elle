@@ -6,7 +6,7 @@
 /*   By: bjm <bjm@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 15:03:21 by bgales            #+#    #+#             */
-/*   Updated: 2022/01/31 16:34:34 by bjm              ###   ########.fr       */
+/*   Updated: 2022/02/06 20:31:21 by bjm              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int		ft_strchr(char *s1, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_strlen(char *string);
 char	*ft_strjoin(char *first, char *then);
+char	*ft_strdeux(char *s1);
 char *ft_strdup(char *s);
 #endif

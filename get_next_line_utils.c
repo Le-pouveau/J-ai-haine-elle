@@ -6,7 +6,7 @@
 /*   By: bjm <bjm@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 14:13:33 by bjm               #+#    #+#             */
-/*   Updated: 2022/02/05 10:44:06 by bjm              ###   ########.fr       */
+/*   Updated: 2022/02/06 21:06:38 by bjm              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@ char	*ft_strdup(char *s1)
 	if (!s1)
 		return (ft_strdup(""));
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	while (s1[++i])
-		ret[i] = s1[i];
+	if (s1)
+		while (s1[++i])
+			ret[i] = s1[i];
 	ret[i] = '\0';
-	
+
 	return (ret);
 }
 
@@ -60,9 +61,8 @@ char *ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 	char	*ret;
-
-	if (!s1)
-		return (ft_strdup(s2));
+	
+	
 	i = 0;
 	j = 0;
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));	
@@ -80,5 +80,6 @@ char *ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	ret[i] = '\0';
+	free (s1);
 	return (ret);
 }
