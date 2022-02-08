@@ -8,7 +8,8 @@ get_next_line_utils.c \
 
 OBJS=	$(SOURCES:.c=.o)
 
-BONUS=
+BONUS= get_next_line_bonus.c \
+get_next_line_utils_bonus.c \
 
 BONUS_OBJ= $(BONUS:.c=.o)
 
