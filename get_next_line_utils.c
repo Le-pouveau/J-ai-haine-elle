@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjm <bjm@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 14:13:33 by bjm               #+#    #+#             */
-/*   Updated: 2022/02/08 17:16:59 by bjm              ###   ########.fr       */
+/*   Updated: 2022/03/04 11:40:03 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_strdup(char *s1)
 	if (!s1)
 		return (ft_strdup(""));
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (!ret)
+		return (NULL);
 	if (s1)
 		while (s1[++i])
 			ret[i] = s1[i];
@@ -65,6 +67,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	j = 0;
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ret)
+		return (NULL);
 	if (s1)
 	{
 		while (s1[i] != '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjm <bjm@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 12:22:34 by bjm               #+#    #+#             */
-/*   Updated: 2022/02/08 17:03:25 by bjm              ###   ########.fr       */
+/*   Updated: 2022/03/04 13:59:40 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_selectbeforenl(char *newline)
 	char	*ret;
 
 	i = 0;
+
 	while (newline[i] != '\n')
 		i++;
 	ret = malloc(sizeof(char) * i + 2);
@@ -78,22 +79,27 @@ char	*ft_selectafternl(char *s1)
 
 char	*get_next_line(int fd)
 {
-	static char	*newline[1024];
+	static char	*newline;
 	char		*ret;
 	char		*test;
 
 	ret = ft_get_new_line(fd);
-	test = ft_strjoin(newline[fd], ret);
+	test = ft_strjoin(newline, ret);
 	free (ret);
 	if (ft_strchr(test, '\n'))
 	{
 		ret = ft_selectbeforenl(test);
-		newline[fd] = ft_selectafternl(test);
+		if (ret[0] == 0)
+	{
+		free(ret);
+		return (NULL);
+	}
+		newline = ft_selectafternl(test);
 		free (test);
 		return (ret);
 	}
 	ret = ft_strdup(test);
-	newline[fd] = NULL;
+	newline = NULL;
 	free (test);
 	if (ret[0] == 0)
 	{
