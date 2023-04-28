@@ -6,7 +6,7 @@
 /*   By: bgales <bgales@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 12:22:34 by bjm               #+#    #+#             */
-/*   Updated: 2022/03/04 13:59:40 by bgales           ###   ########.fr       */
+/*   Updated: 2022/03/04 14:10:24 by bgales           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*ft_selectbeforenl(char *newline)
 	char	*ret;
 
 	i = 0;
-
 	while (newline[i] != '\n')
 		i++;
 	ret = malloc(sizeof(char) * i + 2);
@@ -89,11 +88,6 @@ char	*get_next_line(int fd)
 	if (ft_strchr(test, '\n'))
 	{
 		ret = ft_selectbeforenl(test);
-		if (ret[0] == 0)
-	{
-		free(ret);
-		return (NULL);
-	}
 		newline = ft_selectafternl(test);
 		free (test);
 		return (ret);
